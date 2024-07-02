@@ -20,5 +20,12 @@ export const POST = async () => {
   const final = await stream.finalMessage();
   console.log({ msg: 'final message', final });
 
-  return NextResponse.json({ message: 'Hello from the API!' });
+  return NextResponse.json({
+    message:
+      final.type === 'message'
+        ? final.content[0].type === 'text'
+          ? final.content[0].text
+          : 'No message'
+        : 'No message',
+  });
 };
